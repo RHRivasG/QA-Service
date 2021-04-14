@@ -13,12 +13,12 @@
 		},
 		{
 			state: "accepted",
-			message: "What is Lorem Ipsum?",
+			message: "Where does it come from?",
 			user: "BMary899",
 			date: "11:09 PM - 12 Apr 2021",
 			answer:
-				"Lorem Ipsu is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-			dateAnswer: "11:09 PM - 12 Apr 2021",
+				"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
+			dateAnswer: "11:05 PM - 15 Apr 2021",
 		},
 	];
 </script>

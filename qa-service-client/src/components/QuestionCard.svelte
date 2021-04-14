@@ -86,6 +86,14 @@
 						</div>
 					</div>
 				</div>
+			{:else}
+				<p class="has-text-right">
+					<time
+						datetime="2021-4-12"
+						class="has-text-right {stateColorText}">
+						{dateAnswer}
+					</time>
+				</p>
 			{/if}
 		</div>
 	</div>

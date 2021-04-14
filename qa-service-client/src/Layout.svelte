@@ -10,6 +10,7 @@
 	div.navbar-start {
 		margin-left: 0;
 	}
+
 </style>
 
 <section class="hero is-info is-fullwidth is-fullheight">
@@ -44,11 +45,12 @@
 
 			<div class="navbar-end">
 				<div
-					class="navbar-item has-dropdown is-hoverable has-background-white ">
-					<a
-						href="#"
-						class="navbar-link has-text-info is-rounded"
-						style=" border-radius: 5px;">JhonnyBravo35</a>
+					class="navbar-item has-dropdown is-hoverable has-background-info">
+					<button 
+						href="/"
+						class="navbar-link button is-white has-text-info">
+						JhonnyBravo35
+					</button>
 
 					<div class="navbar-dropdown is-right">
 						<a href="/" class="navbar-item has-text-info">
