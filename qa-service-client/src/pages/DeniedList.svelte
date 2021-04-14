@@ -1,1 +1,39 @@
-<h1>DeniedList</h1>
+<script>
+	import QuestionCard from "../components/QuestionCard.svelte";
+	const questions = [
+		{
+			state: "denied",
+			message: "What is Lorem Ipsum?",
+			user: "BMary89",
+			date: "11:09 PM - 12 Apr 2021",
+			answer:
+				"Lorem Ipsu is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+			dateAnswer: "11:05 PM - 13 Apr 2021",
+		},
+		{
+			state: "denied",
+			message: "What is Lorem Ipsum?",
+			user: "BMary899",
+			date: "11:09 PM - 12 Apr 2021",
+			answer:
+				"Lorem Ipsu is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+			dateAnswer: "11:09 PM - 12 Apr 2021",
+		},
+	];
+</script>
+
+<style>
+	.content-layout {
+		padding-left: 10%;
+		padding-right: 10%;
+	}
+</style>
+
+<div class="content-layout">
+	<div class="box has-text-left">
+		<h3 class="title is-3 has-text-danger ml-5">Denied</h3>
+		{#each questions as question}
+			<QuestionCard {...question} />
+		{/each}
+	</div>
+</div>

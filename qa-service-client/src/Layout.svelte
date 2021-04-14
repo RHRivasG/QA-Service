@@ -1,7 +1,3 @@
-<script>
-	import { Link } from "svelte-routing";
-</script>
-
 <style>
 	.navbar-burger {
 		margin-right: 0;
@@ -18,7 +14,10 @@
 
 <section class="hero is-info is-fullwidth is-fullheight">
 	<div class="hero-head">
-		<nav class="navbar" role="navigation" aria-label="main navigation">
+		<nav
+			class="navbar is-spaced"
+			role="navigation"
+			aria-label="main navigation">
 			<div class="navbar-brand">
 				<h2 class="title">Q&A Service</h2>
 
@@ -35,7 +34,7 @@
 				</a>
 			</div>
 
-			<div id="navbarBasicExample" class="navbar-menu">
+			<div id="navbarBasicExample" class="navbar-menu mb-3">
 				<div class="navbar-start">
 					<a href="/" class="navbar-item">Accepted</a>
 					<a href="/pending" class="navbar-item">Pending</a>
@@ -44,11 +43,17 @@
 			</div>
 
 			<div class="navbar-end">
-				<div class="navbar-item has-dropdown is-hoverable ">
-					<a href="#" class="navbar-link">JhonnyBravo35</a>
+				<div
+					class="navbar-item has-dropdown is-hoverable has-background-white ">
+					<a
+						href="#"
+						class="navbar-link has-text-info is-rounded"
+						style=" border-radius: 5px;">JhonnyBravo35</a>
 
 					<div class="navbar-dropdown is-right">
-						<a href="/" class="navbar-item"> Logout </a>
+						<a href="/" class="navbar-item has-text-info">
+							Logout
+						</a>
 					</div>
 				</div>
 			</div>

@@ -34,7 +34,7 @@
 	<QuestionInput />
 
 	<div class="box has-text-left">
-		<h3 class="title is-3 has-text-info">Questions</h3>
+		<h3 class="title is-3 has-text-info ml-5">Questions</h3>
 		{#each questions as question}
 			<QuestionCard {...question} />
 		{/each}
