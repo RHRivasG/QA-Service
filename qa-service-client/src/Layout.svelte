@@ -1,3 +1,15 @@
+<script>
+	import { Link } from "svelte-routing";
+	import { user } from "./stores/auth.js";
+	import { navigate } from "svelte-routing";
+
+	function logout() {
+		user.logoutUser();
+		navigate("/");
+		localStorage.clear();
+	}
+</script>
+
 <style>
 	.navbar-burger {
 		margin-right: 0;
@@ -10,7 +22,6 @@
 	div.navbar-start {
 		margin-left: 0;
 	}
-
 </style>
 
 <section class="hero is-info is-fullwidth is-fullheight">
@@ -35,30 +46,40 @@
 				</a>
 			</div>
 
-			<div id="navbarBasicExample" class="navbar-menu mb-3">
-				<div class="navbar-start">
-					<a href="/" class="navbar-item">Accepted</a>
-					<a href="/pending" class="navbar-item">Pending</a>
-					<a href="denied" class="navbar-item">Denied</a>
-				</div>
-			</div>
-
-			<div class="navbar-end">
-				<div
-					class="navbar-item has-dropdown is-hoverable has-background-info">
-					<button 
-						href="/"
-						class="navbar-link button is-white has-text-info">
-						JhonnyBravo35
-					</button>
-
-					<div class="navbar-dropdown is-right">
-						<a href="/" class="navbar-item has-text-info">
-							Logout
-						</a>
+			{#if $user}
+				<div id="navbarBasicExample" class="navbar-menu mb-3">
+					<div class="navbar-start">
+						<Link to="/" class="navbar-item">Accepted</Link>
+						<Link to="/pending" class="navbar-item">Pending</Link>
+						<Link to="denied" class="navbar-item">Denied</Link>
 					</div>
 				</div>
-			</div>
+			{/if}
+
+			{#if $user}
+				<div class="navbar-end">
+					<div
+						class="navbar-item has-dropdown is-hoverable has-background-info">
+						<button href="/" class=" button is-white has-text-info">
+							JhonnyBravo35
+						</button>
+
+						<div class="navbar-dropdown is-right">
+							<button
+								on:click={logout}
+								class="navbar-item button has-text-info is-white is-fullwidth">
+								Logout
+							</button>
+						</div>
+					</div>
+				</div>
+			{:else}
+				<div class="navbar-end">
+					<Link to="/login" class="button has-text-info is-white ">
+						Login
+					</Link>
+				</div>
+			{/if}
 		</nav>
 	</div>
 

@@ -1,4 +1,5 @@
 <script>
+	import { user } from "../stores/auth.js";
 	import QuestionCard from "../components/QuestionCard.svelte";
 	import QuestionInput from "../components/QuestionInput.svelte";
 	const questions = [
@@ -21,6 +22,7 @@
 			dateAnswer: "11:05 PM - 15 Apr 2021",
 		},
 	];
+	$: console.log($user);
 </script>
 
 <style>
@@ -31,7 +33,9 @@
 </style>
 
 <div class="content-layout">
-	<QuestionInput />
+	{#if $user}
+		<QuestionInput />
+	{/if}
 
 	<div class="box has-text-left">
 		<h3 class="title is-3 has-text-info ml-5">Questions</h3>

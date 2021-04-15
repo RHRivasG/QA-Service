@@ -1,5 +1,14 @@
 <script>
 	import QuestionCard from "../components/QuestionCard.svelte";
+	import { user } from "../stores/auth.js";
+	import { navigate } from "svelte-routing";
+	import { onMount } from "svelte";
+
+	onMount(() => {
+		if ($user) {
+			navigate("/");
+		}
+	});
 	const questions = [
 		{
 			state: "denied",

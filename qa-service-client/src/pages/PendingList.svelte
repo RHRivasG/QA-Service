@@ -1,5 +1,14 @@
 <script>
 	import QuestionCard from "../components/QuestionCard.svelte";
+	import { user } from "../stores/auth.js";
+	import { navigate } from "svelte-routing";
+	import { onMount } from "svelte";
+
+	onMount(() => {
+		if ($user) {
+			navigate("/");
+		}
+	});
 	const questions = [
 		{
 			state: "pending",
@@ -40,6 +49,7 @@
 <div class="content-layout">
 	<div class="box has-text-left">
 		<h3 class="title is-3 has-text-warning-dark ml-5">Pending</h3>
+
 		{#each questions as question}
 			<QuestionCard
 				{...question}
