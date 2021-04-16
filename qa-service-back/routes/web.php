@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/questions/accepted', [QuestionController::class,'showAccepted']);
-Route::get('/questions/pending', [QuestionController::class,'showPending']);
-Route::get('/questions/denied', [QuestionController::class,'showDenied']);
+

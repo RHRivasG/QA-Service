@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\Models\QuestionStatus;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -29,7 +30,7 @@ class QuestionController extends Controller
             ->join('question_status','questions.id','=','question_status.question_id')
             ->where('question_status.status','pending')
             ->whereNull('question_status.final_date')
-            ->get(['users.username','questions.message','question_status.status','question_status.initial_date']);
+            ->get(['users.username','questions.message','question_status.status','question_status.initial_date AS question_date']);
         return $questions;
     }
 
@@ -40,5 +41,60 @@ class QuestionController extends Controller
             ->whereNull('question_status.final_date')
             ->get(['users.username','questions.message','question_status.status','question_status.initial_date']);
         return $questions;
+    }
+
+    public function questionStore(Request $request){
+        $question = $request->all();
+        $id = Question::create($question)->id;
+
+        QuestionStatus::create([
+            'question_id' => $id,
+            'status' => 'pending',
+            'initial_date' => date('Y-m-d H:i:s')
+        ]);
+
+        return response()->json([
+            'res' => true,
+            'message' => "Question sent!"
+        ], 200);
+    }
+
+    public function answerStore(Request $request){
+
+        QuestionStatus::where('question_id',$request->question_id)
+            ->where('status','pending')
+            ->where('initial_date',$request->question_date)
+            ->update(['final_date'=>date('Y-m-d H:i:s')]);
+
+        QuestionStatus::create([
+            'question_id'=>$request->question_id,
+            'status'=>'accepted',
+            'initial_date', date('Y-m-d H:i:s'),
+            'answer'=>$request->answer
+        ]);
+
+        return response()->json([
+            'res' => true,
+            'message' => "Answer sent!"
+        ], 200);
+    }
+
+    public function denyQuestion(Request $request){
+        QuestionStatus::where('question_id',$request->question_id)
+            ->where('status','pending')
+            ->where('initial_date',$request->question_date)
+            ->update(['final_date'=>date('Y-m-d H:i:s')]);
+
+        QuestionStatus::create([
+            'question_id'=>$request->question_id,
+            'status'=>'denied',
+            'initial_date', date('Y-m-d H:i:s'),
+        ]);
+
+        return response()->json([
+            'res' => true,
+            'message' => "Question denied!"
+        ], 200);
+
     }
 }
