@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:question.create')->only('doQuestion');
+        $this->middleware('can:question.pending')->only('showPending');
+        $this->middleware('can:question.denied')->only('showDenied');
+        $this->middleware('can:question.answer')->only('doAnswer');
+        $this->middleware('can:question.deny')->only('denyQuestion');
+    }
+
     public function showAccepted(){
         $questions = Question::join('users','questions.user_id','=','users.id')
             ->join('question_status AS qsp','questions.id','=','qsp.question_id')
@@ -50,7 +59,10 @@ class QuestionController extends Controller
     }
 
     public function doQuestion(Request $request){
+
         $question = $request->all();
+        $question['user_id'] = $request->user()->id;
+
         $id = Question::create($question)->id;
 
         QuestionStatus::create([
