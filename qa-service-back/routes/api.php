@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,9 +20,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/login',[AuthController::class,'login']);
 Route::get('/questions/accepted', [QuestionController::class,'showAccepted']);
-Route::get('/questions/pending', [QuestionController::class,'showPending']);
-Route::get('/questions/denied', [QuestionController::class,'showDenied']);
-Route::post('/questions/create',[QuestionController::class,'questionStore']);
-Route::post('/questions/answer',[QuestionController::class,'answerStore']);
-Route::post('/questions/deny',[QuestionController::class,'denyQuestion']);
+
+//Protected routes-Only authenticated users can have access to protected routes//
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::post('/logout',[AuthController::class,'logout']);
+
+    Route::post('/questions/create',[QuestionController::class,'questionStore']);
+    
+    Route::get('/questions/pending', [QuestionController::class,'showPending']);
+    Route::get('/questions/denied', [QuestionController::class,'showDenied']);
+    Route::post('/questions/answer',[QuestionController::class,'answerStore']);
+    Route::post('/questions/deny',[QuestionController::class,'denyQuestion']);
+ });
