@@ -30,7 +30,10 @@ class QuestionController extends Controller
             ->join('question_status','questions.id','=','question_status.question_id')
             ->where('question_status.status','pending')
             ->whereNull('question_status.final_date')
-            ->get(['users.username','questions.message','question_status.status','question_status.initial_date AS question_date']);
+            ->get(['users.username',
+                    'questions.message',
+                    'question_status.status',
+                    'question_status.initial_date AS question_date']);
         return $questions;
     }
 
@@ -39,11 +42,14 @@ class QuestionController extends Controller
             ->join('question_status','questions.id','=','question_status.question_id')
             ->where('question_status.status','denied')
             ->whereNull('question_status.final_date')
-            ->get(['users.username','questions.message','question_status.status','question_status.initial_date']);
+            ->get(['users.username',
+                    'questions.message',
+                    'question_status.status',
+                    'question_status.initial_date']);
         return $questions;
     }
 
-    public function questionStore(Request $request){
+    public function doQuestion(Request $request){
         $question = $request->all();
         $id = Question::create($question)->id;
 
@@ -59,7 +65,7 @@ class QuestionController extends Controller
         ], 200);
     }
 
-    public function answerStore(Request $request){
+    public function doAnswer(Request $request){
 
         QuestionStatus::where('question_id',$request->question_id)
             ->where('status','pending')
