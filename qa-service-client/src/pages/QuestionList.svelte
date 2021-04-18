@@ -1,8 +1,10 @@
 <script>
-	import Echo from "laravel-echo";
-	import { user } from "../stores/auth.js";
 	import QuestionCard from "../components/QuestionCard.svelte";
+	import { user } from "../stores/auth.js";
+	import { navigate } from "svelte-routing";
+	import { onMount } from "svelte";
 	import QuestionInput from "../components/QuestionInput.svelte";
+
 	const questions = [
 		{
 			state: "accepted",
@@ -23,20 +25,6 @@
 			dateAnswer: "11:05 PM - 15 Apr 2021",
 		},
 	];
-
-	//const echo = new Echo({
-	//	broadcaster: "pusher",
-	//	key: "ASD1234FG",
-	//	wsHost: window.location.hostname,
-	//	cluster: "mt1",
-	//	wsPort: 6001,
-	//	disableStats: true,
-	//	enabledTRansports: ["ws"],
-	//});
-
-	//$: echo.channel("channel-accepted").listen("AcceptedEvent", (resp) => {
-	//	console.log(resp);
-	//});
 </script>
 
 <style>
@@ -50,7 +38,6 @@
 	{#if $user && $user.roles.includes('participant')}
 		<QuestionInput />
 	{/if}
-
 	<div class="box has-text-left">
 		<h3 class="title is-3 has-text-info ml-5">Questions</h3>
 		{#each questions as question}

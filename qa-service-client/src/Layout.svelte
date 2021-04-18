@@ -1,7 +1,6 @@
 <script>
-	import { Link } from "svelte-routing";
+	import { Link, navigate } from "svelte-routing";
 	import { user } from "./stores/auth.js";
-	import { navigate } from "svelte-routing";
 
 	function logout() {
 		fetch("http://localhost:8000/api/logout", {

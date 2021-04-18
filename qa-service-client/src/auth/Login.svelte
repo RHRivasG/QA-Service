@@ -25,10 +25,14 @@
 				},
 				body: JSON.stringify(userLogin),
 			}).then(async (res) => {
-				let userLogged = await res.json();
-				user.loginUser(userLogged);
-				setStoreUser(userLogged);
-				navigate("/");
+				let response = await res.json();
+				if (response.message == "OK") {
+					user.loginUser(response);
+					setStoreUser(response);
+					navigate("/");
+				} else {
+					console.log(response);
+				}
 			});
 		}, 1000);
 	}

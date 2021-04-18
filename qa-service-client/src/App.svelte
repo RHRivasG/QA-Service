@@ -1,11 +1,11 @@
 <script type="text/javascript">
 	import { Router, Route } from "svelte-routing";
-	import QuestionList from "./pages/QuestionList.svelte";
 	import PendingList from "./pages/PendingList.svelte";
 	import DeniedList from "./pages/DeniedList.svelte";
 	import Layout from "./Layout.svelte";
 	import { user } from "./stores/auth.js";
 	import Login from "./auth/Login.svelte";
+	import QuestionList from "./pages/QuestionList.svelte";
 </script>
 
 <Router>

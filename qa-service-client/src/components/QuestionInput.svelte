@@ -1,8 +1,22 @@
 <script>
+	import { user } from "../stores/auth.js";
+
 	let message = "";
 
 	function handleClick() {
-		console.log(message);
+		let questionInfo = {
+			message: message,
+		};
+		fetch("http://localhost:8000/api/questions/create", {
+			method: "post",
+			headers: {
+				Authorization: "Bearer " + $user.access_token,
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(questionInfo),
+		}).then(async (res) => {
+			console.log(await res.json());
+		});
 		message = "";
 	}
 </script>
@@ -14,14 +28,7 @@
 	}
 </style>
 
-<!--
-
-<div class="notification is-primary is-light">Question sent!</div>
-
-<div class="notification is-danger is-light">Send error.</div>
--->
-
-<form class="box">
+<div class="box">
 	<label
 		for="question-input"
 		class="label is-size-4 has-text-grey has-text-left">
@@ -37,4 +44,4 @@
 	<button on:click={handleClick} class="button is-success block">
 		Send
 	</button>
-</form>
+</div>
