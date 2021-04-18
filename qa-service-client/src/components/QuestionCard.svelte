@@ -1,18 +1,18 @@
 <script>
 	import { createEventDispatcher } from "svelte";
 	export let message;
-	export let user;
-	export let date;
+	export let username;
+	export let question_date;
 	export let answer;
-	export let dateAnswer;
-	export let state;
+	export let answer_date;
+	export let status;
 
 	const dispatch = createEventDispatcher();
 	let answerPending = "";
 
 	let stateColorText = "";
 	let stateColorBorder = "";
-	switch (state) {
+	switch (status) {
 		case "accepted":
 			stateColorText = "has-text-info";
 			stateColorBorder = "border-info";
@@ -32,7 +32,7 @@
 	}
 
 	function denyQuestion() {
-		dispatch("deny", {text: message});
+		dispatch("deny", { text: message });
 	}
 </script>
 
@@ -56,18 +56,21 @@
 	<div class="card-content">
 		<div class="content">
 			<p class="title is-4 has-text-grey">{message}</p>
-			<p class="subtitle is-6 has-text-primary">{user} ({date})</p>
-			{#if state == 'accepted'}
+			<p class="subtitle is-6 has-text-primary">
+				{username}
+				({question_date})
+			</p>
+			{#if status == 'accepted'}
 				{answer}
 				<br />
 				<p class="has-text-right">
 					<time
 						datetime="2021-4-12"
 						class="has-text-right {stateColorText}">
-						{dateAnswer}
+						{answer_date}
 					</time>
 				</p>
-			{:else if state == 'pending'}
+			{:else if status == 'pending'}
 				<textarea
 					bind:value={answerPending}
 					class="textarea"
@@ -91,7 +94,7 @@
 					<time
 						datetime="2021-4-12"
 						class="has-text-right {stateColorText}">
-						{dateAnswer}
+						{answer_date}
 					</time>
 				</p>
 			{/if}

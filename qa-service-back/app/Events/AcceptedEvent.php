@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Interfaces\QuestionServiceInterface;
+use App\Services\QuestionService;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,17 +16,17 @@ class AcceptedEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $data;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct(QuestionServiceInterface $questionService)
     {
         //
-        $this->message = $message;
+        $this->data = $questionService->showAccepted()->toArray();
     }
 
     /**
