@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AcceptedEvent;
 use App\Interfaces\QuestionServiceInterface;
 use App\Models\Question;
 use App\Models\QuestionStatus;
@@ -19,7 +20,10 @@ class QuestionController extends Controller
     }
 
     public function showAccepted(QuestionServiceInterface $questionService){
-        return $questionService->showAccepted();
+        event(new AcceptedEvent($questionService));
+        return [
+            'message' => 'OK'
+        ];
     }
 
     public function showPending(QuestionServiceInterface $questionService){

@@ -16,7 +16,7 @@
 		},
 	];
 
-	let quiz;
+	let quiz = [];
 	function websockets() {
 		const echo = new Echo({
 			broadcaster: "pusher",
@@ -28,9 +28,14 @@
 			disableStats: true,
 			enabledTransports: ["ws"],
 		});
+		fetch("http://localhost:8000/api/questions/accepted").then(
+			async (res) => {
+				console.log(await res.json());
+			}
+		);
+
 		echo.channel("channel-accepted").listen("AcceptedEvent", (resp) => {
-			quiz = resp;
-			console.log(resp);
+			quiz = resp.data;
 		});
 	}
 
@@ -50,7 +55,7 @@
 	{/if}
 	<div class="box has-text-left">
 		<h3 class="title is-3 has-text-info ml-5">Questions</h3>
-		{#each questions as question}
+		{#each quiz as question}
 			<QuestionCard {...question} />
 		{/each}
 	</div>
