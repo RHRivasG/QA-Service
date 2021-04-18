@@ -1,4 +1,5 @@
 <script>
+	import Echo from "laravel-echo";
 	import { user } from "../stores/auth.js";
 	import QuestionCard from "../components/QuestionCard.svelte";
 	import QuestionInput from "../components/QuestionInput.svelte";
@@ -22,7 +23,20 @@
 			dateAnswer: "11:05 PM - 15 Apr 2021",
 		},
 	];
-	$: console.log($user);
+
+	//const echo = new Echo({
+	//	broadcaster: "pusher",
+	//	key: "ASD1234FG",
+	//	wsHost: window.location.hostname,
+	//	cluster: "mt1",
+	//	wsPort: 6001,
+	//	disableStats: true,
+	//	enabledTRansports: ["ws"],
+	//});
+
+	//$: echo.channel("channel-accepted").listen("AcceptedEvent", (resp) => {
+	//	console.log(resp);
+	//});
 </script>
 
 <style>
@@ -33,7 +47,7 @@
 </style>
 
 <div class="content-layout">
-	{#if $user}
+	{#if $user && $user.roles.includes('participant')}
 		<QuestionInput />
 	{/if}
 

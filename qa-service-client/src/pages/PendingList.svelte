@@ -5,7 +5,7 @@
 	import { onMount } from "svelte";
 
 	onMount(() => {
-		if ($user) {
+		if (!$user || !$user.roles.includes("moderator")) {
 			navigate("/");
 		}
 	});

@@ -14,13 +14,22 @@
 
 	function login() {
 		setTimeout(() => {
-			let userLogged = {
+			let userLogin = {
 				username: name,
-				token: 1234,
+				password: password,
 			};
-			user.loginUser(userLogged);
-			setStoreUser(userLogged);
-			navigate("/");
+			fetch("http://localhost:8000/api/login", {
+				method: "post",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(userLogin),
+			}).then(async (res) => {
+				let userLogged = await res.json();
+				user.loginUser(userLogged);
+				setStoreUser(userLogged);
+				navigate("/");
+			});
 		}, 1000);
 	}
 </script>

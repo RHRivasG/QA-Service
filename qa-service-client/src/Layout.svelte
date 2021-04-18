@@ -4,6 +4,12 @@
 	import { navigate } from "svelte-routing";
 
 	function logout() {
+		fetch("http://localhost:8000/api/logout", {
+			method: "post",
+			headers: {
+				Authorization: "Bearer " + $user.access_token,
+			},
+		}).then(async (res) => console.log(await res.json()));
 		user.logoutUser();
 		navigate("/");
 		localStorage.clear();
@@ -46,12 +52,12 @@
 				</a>
 			</div>
 
-			{#if $user}
+			{#if $user && $user.roles.includes('moderator')}
 				<div id="navbarBasicExample" class="navbar-menu mb-3">
 					<div class="navbar-start">
 						<Link to="/" class="navbar-item">Accepted</Link>
 						<Link to="/pending" class="navbar-item">Pending</Link>
-						<Link to="denied" class="navbar-item">Denied</Link>
+						<Link to="/denied" class="navbar-item">Denied</Link>
 					</div>
 				</div>
 			{/if}
@@ -61,7 +67,7 @@
 					<div
 						class="navbar-item has-dropdown is-hoverable has-background-info">
 						<button href="/" class=" button is-white has-text-info">
-							JhonnyBravo35
+							{$user.username}
 						</button>
 
 						<div class="navbar-dropdown is-right">

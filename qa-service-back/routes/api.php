@@ -21,17 +21,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/login',[AuthController::class,'login']);
-Route::get('/questions/accepted', [QuestionController::class,'showAccepted'])->name('question.accepted');
+Route::get('/questions/accepted', [QuestionController::class,'showAccepted']);
+
 
 //Protected routes-Only authenticated users can have access to protected routes//
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/logout',[AuthController::class,'logout']);
 
-    Route::post('/questions/create',[QuestionController::class,'doQuestion'])->name('question.create');
+    Route::post('/questions/create',[QuestionController::class,'doQuestion']);
     
-    Route::get('/questions/pending', [QuestionController::class,'showPending'])->name('question.pending');
-    Route::get('/questions/denied', [QuestionController::class,'showDenied'])->name('question.denied');
-    Route::post('/questions/answer',[QuestionController::class,'doAnswer'])->name('question.answer');
-    Route::post('/questions/deny',[QuestionController::class,'denyQuestion'])->name('question.deny');
+    Route::get('/questions/pending', [QuestionController::class,'showPending']);
+    Route::get('/questions/denied', [QuestionController::class,'showDenied']);
+    Route::post('/questions/answer',[QuestionController::class,'doAnswer']);
+    Route::post('/questions/deny',[QuestionController::class,'denyQuestion']);
  });
