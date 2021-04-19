@@ -4,38 +4,58 @@
 	import { navigate } from "svelte-routing";
 	import { onMount } from "svelte";
 
+	let questions = [];
 	onMount(() => {
 		if (!$user || !$user.roles.includes("moderator")) {
 			navigate("/");
 		}
+		fetch("http://192.168.1.7:8000/api/questions/pending", {
+			method: "get",
+			headers: {
+				Authorization: "Bearer " + $user.access_token,
+			},
+		}).then(async (res) => {
+			questions = await res.json();
+		});
 	});
-	const questions = [
-		{
-			state: "pending",
-			message: "What is Lorem Ipsum?",
-			user: "BMary89",
-			date: "11:09 PM - 12 Apr 2021",
-			answer:
-				"Lorem Ipsu is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-			dateAnswer: "11:05 PM - 13 Apr 2021",
-		},
-		{
-			state: "pending",
-			message: "What is Lorem Ipsum?",
-			user: "BMary899",
-			date: "11:09 PM - 12 Apr 2021",
-			answer:
-				"Lorem Ipsu is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-			dateAnswer: "11:09 PM - 12 Apr 2021",
-		},
-	];
 
 	function handleSend(event) {
+		let questionAnswer = {
+			answer: event.detail.text,
+			question_id: event.detail.id,
+			question_date: event.detail.date,
+		};
+		fetch("http://192.168.1.7:8000/api/questions/answer", {
+			method: "post",
+			headers: {
+				Authorization: "Bearer " + $user.access_token,
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(questionAnswer),
+		}).then(async (res) => {
+			console.log(await res.json());
+		});
+
 		console.log(event.detail.text + " sent.");
 	}
 
 	function handleDeny(event) {
-		console.log(event.detail.text + " denied.");
+		let questionDenied = {
+			question_id: event.detail.id,
+			question_date: event.detail.date,
+		};
+		fetch("http://192.168.1.7:8000/api/questions/deny", {
+			method: "post",
+			headers: {
+				Authorization: "Bearer " + $user.access_token,
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(questionDenied),
+		}).then(async (res) => {
+			console.log(await res.json());
+		});
+
+		console.log(event.detail.id + " denied.");
 	}
 </script>
 

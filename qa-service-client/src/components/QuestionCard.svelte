@@ -1,5 +1,6 @@
 <script>
 	import { createEventDispatcher } from "svelte";
+	export let id;
 	export let message;
 	export let username;
 	export let question_date;
@@ -28,11 +29,18 @@
 	}
 
 	function sendQuestion() {
-		dispatch("send", { text: answerPending });
+		dispatch("send", {
+			text: answerPending,
+			id: id,
+			date: question_date,
+		});
 	}
 
 	function denyQuestion() {
-		dispatch("deny", { text: message });
+		dispatch("deny", {
+			id: id,
+			date: question_date,
+		});
 	}
 </script>
 

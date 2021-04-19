@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\AcceptedEvent;
+use App\Events\DeniedEvent;
+use App\Events\PendingEvent;
 use App\Interfaces\QuestionServiceInterface;
 use App\Models\Question;
 use App\Models\QuestionStatus;
@@ -20,18 +22,27 @@ class QuestionController extends Controller
     }
 
     public function showAccepted(QuestionServiceInterface $questionService){
-        event(new AcceptedEvent($questionService));
-        return [
-            'message' => 'OK'
-        ];
+        return $questionService->showAccepted();
+        //event(new AcceptedEvent($questionService));
+        //return [
+        //    'message' => 'OK'
+        //];
     }
 
     public function showPending(QuestionServiceInterface $questionService){
-        return $questionService->showPending();
+        return $questionService->showPending()->toArray();
+        //event(new PendingEvent($questionService));
+        //return [
+        //    'message' => 'OK'
+        //];
     }
 
     public function showDenied(QuestionServiceInterface $questionService){
-        return $questionService->showDenied();
+        return $questionService->showDenied()->toArray();
+        //event(new DeniedEvent($questionService));
+        //return [
+        //    'message' => 'OK'
+        //];
     }
 
     public function doQuestion(Request $request){

@@ -11,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class DeniedEvent
+class DeniedEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -25,7 +25,7 @@ class DeniedEvent
     public function __construct(QuestionServiceInterface $questionService)
     {
         //
-        $this->data = $questionService->showAccepted()->toArray();
+        $this->data = $questionService->showDenied()->toArray();
     }
     /**
      * Get the channels the event should broadcast on.

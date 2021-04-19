@@ -18,7 +18,7 @@
 				username: name,
 				password: password,
 			};
-			fetch("http://localhost:8000/api/login", {
+			fetch("http://192.168.1.7:8000/api/login", {
 				method: "post",
 				headers: {
 					"Content-Type": "application/json",

@@ -7,7 +7,7 @@
 		let questionInfo = {
 			message: message,
 		};
-		fetch("http://localhost:8000/api/questions/create", {
+		fetch("http://192.168.1.7:8000/api/questions/create", {
 			method: "post",
 			headers: {
 				Authorization: "Bearer " + $user.access_token,

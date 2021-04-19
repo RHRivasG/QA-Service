@@ -4,31 +4,20 @@
 	import { navigate } from "svelte-routing";
 	import { onMount } from "svelte";
 
+	let questions = [];
 	onMount(() => {
 		if (!$user || !$user.roles.includes("moderator")) {
 			navigate("/");
 		}
+		fetch("http://192.168.1.7:8000/api/questions/denied", {
+			method: "get",
+			headers: {
+				Authorization: "Bearer " + $user.access_token,
+			},
+		}).then(async (res) => {
+			questions = await res.json();
+		});
 	});
-	const questions = [
-		{
-			state: "denied",
-			message: "What is Lorem Ipsum?",
-			user: "BMary89",
-			date: "11:09 PM - 12 Apr 2021",
-			answer:
-				"Lorem Ipsu is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-			dateAnswer: "11:05 PM - 13 Apr 2021",
-		},
-		{
-			state: "denied",
-			message: "What is Lorem Ipsum?",
-			user: "BMary899",
-			date: "11:09 PM - 12 Apr 2021",
-			answer:
-				"Lorem Ipsu is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-			dateAnswer: "11:09 PM - 12 Apr 2021",
-		},
-	];
 </script>
 
 <style>

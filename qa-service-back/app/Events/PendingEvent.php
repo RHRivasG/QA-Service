@@ -11,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PendingEvent
+class PendingEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -25,7 +25,7 @@ class PendingEvent
     public function __construct(QuestionServiceInterface $questionService)
     {
         //
-        $this->data = $questionService->showAccepted()->toArray();
+        $this->data = $questionService->showPending()->toArray();
     }    
     /**
      * Get the channels the event should broadcast on.
@@ -34,6 +34,6 @@ class PendingEvent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-pending');
+        return new Channel('channel-pending');
     }
 }

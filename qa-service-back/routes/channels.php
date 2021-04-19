@@ -20,12 +20,12 @@ Broadcast::channel('App.Models.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('channel-accepted.{id}', function ($user, $id, QuestionServiceInterface $questionService) {
+Broadcast::channel('channel-accepted.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
 Broadcast::channel('channel-pending.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+    return $user->hasRole('moderator');
 });
 
 Broadcast::channel('channel-denied.{id}', function ($user, $id) {
