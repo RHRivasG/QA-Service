@@ -2,6 +2,11 @@
 	import { Link, navigate } from "svelte-routing";
 	import { user } from "./stores/auth.js";
 
+	let selected = ["", "", ""];
+	function linkClick(index) {
+		selected = ["", "", ""];
+		selected[index] = "is-active";
+	}
 	function logout() {
 		fetch("http://localhost:8000/api/logout", {
 			method: "post",
@@ -26,6 +31,9 @@
 
 	div.navbar-start {
 		margin-left: 0;
+	}
+	a:first-child:focus {
+		background-color: inherit !important;
 	}
 </style>
 
@@ -52,11 +60,26 @@
 			</div>
 
 			{#if $user && $user.roles.includes('moderator')}
-				<div id="navbarBasicExample" class="navbar-menu mb-3">
+				<div id="navbarBasicExample" class="navbar-menu mb-4">
 					<div class="navbar-start">
-						<Link to="/" class="navbar-item">Accepted</Link>
-						<Link to="/pending" class="navbar-item">Pending</Link>
-						<Link to="/denied" class="navbar-item">Denied</Link>
+						<Link
+							class="navbar-item {selected[0]}"
+							to="/"
+							on:click={() => linkClick(0)}>
+							Accepted
+						</Link>
+						<Link
+							class="navbar-item {selected[1]}"
+							to="/pending"
+							on:click={() => linkClick(1)}>
+							Pending
+						</Link>
+						<Link
+							class="navbar-item {selected[2]}"
+							to="/denied"
+							on:click={() => linkClick(2)}>
+							Denied
+						</Link>
 					</div>
 				</div>
 			{/if}
@@ -66,7 +89,10 @@
 					<div
 						class="navbar-item has-dropdown is-hoverable has-background-info">
 						<button href="/" class=" button is-white has-text-info">
-							{$user.username}
+							<span> {$user.username} </span>
+							<span class="icon is-small">
+								<i class="fas fa-chevron-down" />
+							</span>
 						</button>
 
 						<div class="navbar-dropdown is-right">

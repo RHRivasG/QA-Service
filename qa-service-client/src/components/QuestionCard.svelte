@@ -1,12 +1,12 @@
 <script>
 	import { createEventDispatcher } from "svelte";
-	export let id;
-	export let message;
-	export let username;
-	export let question_date;
-	export let answer;
-	export let answer_date;
-	export let status;
+	export let id = "";
+	export let message = "";
+	export let username = "";
+	export let question_date = "";
+	export let answer = "";
+	export let answer_date = "";
+	export let status = "";
 
 	const dispatch = createEventDispatcher();
 	let answerPending = "";
@@ -60,7 +60,10 @@
 	}
 </style>
 
-<div class="card m-5 {stateColorBorder} ">
+<div
+	data-aos="fade-right"
+	data-aos-offset="200"
+	class="card m-5 {stateColorBorder} ">
 	<div class="card-content">
 		<div class="content">
 			<p class="title is-4 has-text-grey">{message}</p>
