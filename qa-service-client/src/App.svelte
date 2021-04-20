@@ -2,6 +2,7 @@
 	import { Router, Route } from "svelte-routing";
 	import Layout from "./Layout.svelte";
 	import Login from "./auth/Login.svelte";
+	import Register from "./auth/Register.svelte";
 	import QuestionList from "./components/QuestionList.svelte";
 </script>
 
@@ -18,5 +19,6 @@
 		</Route>
 
 		<Route path="/login" component={Login} />
+		<Route path="/register" component={Register} />
 	</Layout>
 </Router>

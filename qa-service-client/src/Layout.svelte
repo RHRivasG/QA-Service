@@ -8,15 +8,17 @@
 		selected[index] = "is-active";
 	}
 	function logout() {
-		fetch("http://localhost:8000/api/logout", {
+		fetch("http://192.168.1.7:8000/api/logout", {
 			method: "post",
 			headers: {
 				Authorization: "Bearer " + $user.access_token,
 			},
-		}).then(async (res) => console.log(await res.json()));
-		user.logoutUser();
-		navigate("/");
-		localStorage.clear();
+		}).then(async (res) => {
+			user.logoutUser();
+			navigate("/pending");
+			localStorage.clear();
+			console.log(await res.json());
+		});
 	}
 </script>
 
@@ -106,16 +108,25 @@
 				</div>
 			{:else}
 				<div class="navbar-end">
-					<Link to="/login" class="button has-text-info is-white ">
-						Login
-					</Link>
+					<div class="buttons">
+						<Link
+							to="/login"
+							class="button has-text-info is-white ">
+							Login
+						</Link>
+						<Link
+							to="/register"
+							class="button has-text-info is-white ">
+							Register
+						</Link>
+					</div>
 				</div>
 			{/if}
 		</nav>
 	</div>
 
-	<div class="hero-body">
-		<div class="container has-text-centered">
+	<div class="hero-body is-align-items-start has-text-centered">
+		<div class="container">
 			<slot />
 		</div>
 	</div>

@@ -2,7 +2,7 @@
 	import { user, setStoreUser } from "../stores/auth.js";
 	import { navigate } from "svelte-routing";
 	import { onMount } from "svelte";
-	import { loginApi } from "../api/auth-api";
+	import { registerApi } from "../api/auth-api";
 
 	onMount(() => {
 		if ($user) {
@@ -12,15 +12,14 @@
 
 	let name = "";
 	let password = "";
-	let alert = "";
 
-	function login() {
+	function register() {
 		setTimeout(async () => {
-			let userLogin = {
+			let userRegistered = {
 				username: name,
 				password: password,
 			};
-			let response = await loginApi(userLogin);
+			let response = await registerApi(userRegistered);
 			if ((await response.message) == "OK") {
 				user.loginUser(await response);
 				setStoreUser(await response);
@@ -43,18 +42,8 @@
 </style>
 
 <div class="content-layout">
-	{#if alert != ''}
-		<div
-			data-aos="fade-down"
-			data-aos-easing="linear"
-			data-aos-duration="1500"
-			data-aos-anchor="#body"
-			class="notification is-danger is-light">
-			{alert}
-		</div>
-	{/if}
 	<div class="box">
-		<h3 class="title is-3 has-text-info">Login</h3>
+		<h3 class="title is-3 has-text-info">Register</h3>
 		<div class="field has-text-left">
 			<label for="username" class="label has-text-grey">Username</label>
 			<div class="control has-icons-left">
@@ -83,7 +72,7 @@
 		</div>
 		<div class="field">
 			<div class="control">
-				<button on:click={login} class="button is-link">Sign in</button>
+				<button on:click={register} class="button is-link">Sign up</button>
 			</div>
 		</div>
 	</div>

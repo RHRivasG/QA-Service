@@ -1,23 +1,16 @@
 <script>
 	import { user } from "../stores/auth.js";
+	import { sendQuestion } from "../api/question-api";
 
 	let message = "";
 	let alert = "";
 
-	function handleClick() {
+	async function handleClick() {
 		let questionInfo = {
 			message: message,
 		};
-		fetch("http://192.168.1.7:8000/api/questions/create", {
-			method: "post",
-			headers: {
-				Authorization: "Bearer " + $user.access_token,
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(questionInfo),
-		}).then(async (res) => {
-			alert = await res.json();
-		});
+
+		alert = await sendQuestion(questionInfo, $user);
 		setTimeout(() => {
 			alert = "";
 		}, 4000);

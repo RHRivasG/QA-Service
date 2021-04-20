@@ -60,7 +60,7 @@ class QuestionController extends Controller
 
         return response()->json([
             'res' => true,
-            'message' => "Question sent!"
+            'message' => "Your question is in revision!"
         ], 200);
     }
 

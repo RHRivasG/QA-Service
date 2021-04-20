@@ -7,6 +7,8 @@
 	export let answer = "";
 	export let answer_date = "";
 	export let status = "";
+	export let number = 0;
+	export let last = false;
 
 	const dispatch = createEventDispatcher();
 	let answerPending = "";
@@ -61,8 +63,9 @@
 </style>
 
 <div
-	data-aos="fade-right"
+	data-aos="fade-up"
 	data-aos-offset="200"
+	data-aos-anchor-placement="top-bottom"
 	class="card m-5 {stateColorBorder} ">
 	<div class="card-content">
 		<div class="content">

@@ -8,6 +8,29 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+
+    public function register(Request $request){
+
+        $validateData = $request->validate([
+            'username' => 'required|string|max:255',
+            'password' => 'required|string|min:8'
+        ]);
+
+        $user = User::create([
+            'username' => $validateData['username'],
+            'password' => bcrypt($validateData['password'])
+        ])->assignRole('participant');;
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'message' => 'OK',
+            'username' => $user->username,
+            'roles' => $user->getRoleNames(),
+            'access_token' => $token,
+        ]);
+    }
+
     //
     public function login(Request $request){
 

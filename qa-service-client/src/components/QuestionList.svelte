@@ -4,11 +4,7 @@
 	import { onMount } from "svelte";
 	import QuestionInput from "./QuestionInput.svelte";
 	import QuestionCard from "./QuestionCard.svelte";
-	import {
-		loadList,
-		sendAnswer,
-		denyQuestion,
-	} from "../services/question-service";
+	import { loadList, sendAnswer, denyQuestion } from "../api/question-api";
 
 	export let typelist = "accepted";
 
@@ -61,8 +57,8 @@
 		padding-left: 10%;
 		padding-right: 10%;
 	}
-	div.box {
-		min-height: 450px;
+	#question-container {
+		min-height: 200px !important;
 	}
 </style>
 
@@ -76,16 +72,18 @@
 		data-aos-offset="400"
 		data-aos-easing="ease-in-sine"
 		data-aos-anchor="#body"
-  		id = "question-container"
+		id="question-container"
 		class="box has-text-left">
 		<h3 class="title is-3 {stateColorText} ml-5">{title}</h3>
 
 		{#await promise}
 			<progress class="progress is-primary" max="100">30%</progress>
 		{:then questions}
-			{#each questions as question}
+			{#each questions as question, i}
 				<QuestionCard
 					{...question}
+					number={i}
+					last={questions.length == i + 1}
 					on:send={handleSend}
 					on:deny={handleDeny} />
 			{/each}
