@@ -15,8 +15,12 @@
 			},
 		}).then(async (res) => {
 			user.logoutUser();
-			navigate("/pending");
 			localStorage.clear();
+			if (selected.indexOf("is-active") == 1) {
+				navigate("/denied");
+			} else {
+				navigate("/pending");
+			}
 			console.log(await res.json());
 		});
 	}
@@ -46,7 +50,7 @@
 			role="navigation"
 			aria-label="main navigation">
 			<div class="navbar-brand">
-				<h2 class="title">Q&A Service</h2>
+				<a href="/" class="title">Q&A Service</a>
 
 				<a
 					href="/"
@@ -55,7 +59,7 @@
 					aria-label="menu"
 					aria-expanded="false"
 					data-target="navbarBasicExample">
-					<span aria-hidden="true" />
+					<span aria-hidden="true"> Accepted </span>
 					<span aria-hidden="true" />
 					<span aria-hidden="true" />
 				</a>

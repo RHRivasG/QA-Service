@@ -16,9 +16,9 @@ class QuestionService implements QuestionServiceInterface
             ->whereNull('qsa.final_date')
             ->get(['users.username',
                     'questions.message',
-                    'qsp.initial_date AS question_date',
+                    'qsp.created_at AS question_date',
                     'qsa.status',
-                    'qsa.initial_date AS answer_date',
+                    'qsa.created_at AS answer_date',
                     'qsa.answer' ]);
         return $questions;
     }
@@ -33,7 +33,7 @@ class QuestionService implements QuestionServiceInterface
                     'questions.id',
                     'questions.message',
                     'question_status.status',
-                    'question_status.initial_date AS question_date']);
+                    'question_status.created_at AS question_date']);
         return $questions;
     }
 
@@ -48,9 +48,9 @@ class QuestionService implements QuestionServiceInterface
             ->whereNull('qsa.final_date')
             ->get(['users.username',
                     'questions.message',
-                    'qsp.initial_date AS question_date',
+                    'qsp.created_at AS question_date',
                     'qsa.status',
-                    'qsa.initial_date AS answer_date' ]);
+                    'qsa.created_at AS answer_date' ]);
         return $questions;
 
     }

@@ -9,8 +9,8 @@
 	export let typelist = "accepted";
 
 	onMount(() => {
-		if (typelist != "accepted") {
-			if (!$user || !$user.roles.includes("moderator")) {
+		if (!$user || !$user.roles.includes("moderator")) {
+			if (typelist != "accepted") {
 				navigate("/");
 			}
 		}

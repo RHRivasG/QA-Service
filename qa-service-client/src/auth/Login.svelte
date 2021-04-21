@@ -40,6 +40,10 @@
 		padding-left: 25%;
 		padding-right: 25%;
 	}
+	.block {
+		display: block;
+		width: 100%;
+	}
 </style>
 
 <div class="content-layout">
@@ -61,8 +65,7 @@
 				<input
 					bind:value={name}
 					class="input"
-					type="text"
-					placeholder="Text input" />
+					type="text" />
 				<span class="icon is-small is-left">
 					<i class="fas fa-user" />
 				</span>
@@ -74,8 +77,7 @@
 				<input
 					bind:value={password}
 					class="input"
-					type="password"
-					placeholder="Text input" />
+					type="password" />
 				<span class="icon is-small is-left">
 					<i class="fas fa-key" />
 				</span>
@@ -83,7 +85,7 @@
 		</div>
 		<div class="field">
 			<div class="control">
-				<button on:click={login} class="button is-link">Sign in</button>
+				<button on:click={login} class="button is-link block">Sign in</button>
 			</div>
 		</div>
 	</div>

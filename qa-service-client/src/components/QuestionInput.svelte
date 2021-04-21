@@ -45,8 +45,7 @@
 		<p class="control is-expanded">
 			<textarea
 				bind:value={message}
-				class="textarea"
-				placeholder="e.g. Hello world" />
+				class="textarea" />
 		</p>
 	</div>
 	<button on:click={handleClick} class="button is-success block">

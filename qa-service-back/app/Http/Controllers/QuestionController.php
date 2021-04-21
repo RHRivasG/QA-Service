@@ -74,7 +74,7 @@ class QuestionController extends Controller
         QuestionStatus::create([
             'question_id'=>$request->question_id,
             'status'=>'accepted',
-            'initial_date', date('Y-m-d H:i:s'),
+            'initial_date' => date('Y-m-d H:i:s'),
             'answer'=>$request->answer
         ]);
 
@@ -93,7 +93,7 @@ class QuestionController extends Controller
         QuestionStatus::create([
             'question_id'=>$request->question_id,
             'status'=>'denied',
-            'initial_date', date('Y-m-d H:i:s'),
+            'initial_date' => date('Y-m-d H:i:s'),
         ]);
 
         return response()->json([

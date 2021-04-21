@@ -15,4 +15,4 @@ async function requestGeneric(pkg, method) {
 export const loginApi = async (userLogin) =>
   await requestGeneric(userLogin, "login");
 export const registerApi = async (userRegistered) =>
-  await requestGeneric(userLogin, "register");
+  await requestGeneric(userRegistered, "register");
